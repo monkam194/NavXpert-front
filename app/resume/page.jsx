@@ -55,7 +55,7 @@ const about = {
 // experience data
 const experience = {
   icon: "/assets/resume/badge.svg",
-  title: "My experience",
+  title: "⚠️Trafic perturbé!",
   description:
     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates quibusdam, sunt explicabo inventore.",
   items: [
@@ -201,10 +201,10 @@ const Resume = () => {
           className="flex flex-col xl:flex-row gap-[60px]"
         >
           <TabsList className="flex flex-col w-full max-w-[380px] mx-auto xl:mx-0 gap-6">
-            <TabsTrigger value="experience">Experience</TabsTrigger>
-            <TabsTrigger value="education">Education</TabsTrigger>
-            <TabsTrigger value="skills">Skills</TabsTrigger>
-            <TabsTrigger value="about">About me</TabsTrigger>
+            <TabsTrigger value="experience">Etat de ma ligne🤔</TabsTrigger>
+            <TabsTrigger value="education">Besoin d'aide ?🤒</TabsTrigger>
+            <TabsTrigger value="skills">Réseau😎</TabsTrigger>
+            <TabsTrigger value="about">Bon de retard👌</TabsTrigger>
           </TabsList>
 
           {/* content */}

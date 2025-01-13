@@ -1,4 +1,4 @@
-import Link from "next/link";
+ import Link from "next/link";
 import { Button } from "./ui/button";
 
 // components
@@ -11,9 +11,13 @@ const Header = () => {
       <div className="container mx-auto flex justify-between items-center">
         {/* logo */}
         <Link href="/">
-          <h1 className="text-4xl font-semibold">
-            Luke<span className="text-accent">.</span>
-          </h1>
+          <img 
+            src="/assets/navxpert.png" 
+            alt="NavXpert Logo" 
+            
+            width="120px"
+            height="120px" 
+          />
         </Link>
 
         {/* desktop nav & hire me button */}
