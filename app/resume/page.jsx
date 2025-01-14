@@ -10,10 +10,13 @@ import {
 } from "react-icons/fa";
 
 import { SiTailwindcss, SiNextdotjs } from "react-icons/si";
+import PerturbationModal from "@/components/PerturbationModal";
+import { Button } from "@/components/ui/button";
+import { FiDownload } from "react-icons/fi";
 
 // about data
 const about = {
-  title: "About me",
+  title: "Bon de retard",
   description:
     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates quibusdam, sunt explicabo inventore.",
   info: [
@@ -57,37 +60,27 @@ const experience = {
   icon: "/assets/resume/badge.svg",
   title: "⚠️Trafic perturbé!",
   description:
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates quibusdam, sunt explicabo inventore.",
+    "Votre trafic est perturbé...",
   items: [
     {
       company: "Tech Solutions Inc.",
-      position: "Full Stack Developer",
+      position: "RERC",
       duration: "2022 - Present",
     },
     {
       company: "Web Design Studio",
-      position: "Front-End Developer Intern",
+      position: "RERD",
       duration: "Summer 2021",
     },
     {
       company: "E-commerce Startup",
-      position: "Freelance Web Developer",
+      position: "Metro 14",
       duration: "2020 - 2021",
     },
     {
       company: "Tech Academy",
-      position: "Teaching Assistant",
+      position: "Metro 7",
       duration: "2019 - 2020",
-    },
-    {
-      company: "Digital Agency",
-      position: "UI/UX Designer",
-      duration: "2018 - 2019",
-    },
-    {
-      company: "Software Development Firm",
-      position: "Junior Developer",
-      duration: "2017 - 2018",
     },
   ],
 };
@@ -95,7 +88,7 @@ const experience = {
 // education data
 const education = {
   icon: "/assets/resume/cap.svg",
-  title: "My education",
+  title: "Besoin d'aide?",
   description:
     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates quibusdam, sunt explicabo inventore.",
   items: [
@@ -134,7 +127,7 @@ const education = {
 
 // skills data
 const skills = {
-  title: "My skills",
+  title: "Réseau",
   description:
     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates quibusdam, sunt explicabo inventore.",
   skillList: [
@@ -184,6 +177,7 @@ import {
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { motion } from "framer-motion";
+import AideModal from "@/components/AideModal";
 
 const Resume = () => {
   return (
@@ -213,9 +207,7 @@ const Resume = () => {
             <TabsContent value="experience" className="w-full">
               <div className="flex flex-col gap-[30px] text-center xl:text-left">
                 <h3 className="text-4xl font-bold">{experience.title}</h3>
-                <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
-                  {experience.description}
-                </p>
+                <PerturbationModal />
                 <ScrollArea className="h-[400px]">
                   <ul className="grid grid-cols-1 lg:grid-cols-2 gap-[30px]">
                     {experience.items.map((item, index) => {
@@ -224,8 +216,8 @@ const Resume = () => {
                           key={index}
                           className="bg-[#232329] h-[184px] py-6 px-10 rounded-xl flex flex-col justify-center items-center lg:items-start gap-1"
                         >
-                          <span className="text-accent">{item.duration}</span>
-                          <h3 className="text-xl max-w-[260px] min-h-[60px] text-center lg:text-left">
+                          {/* <span className="text-accent">{item.duration}</span> */}
+                          <h3 className="text-xl max-w-[260px] min-h-[60px] text-center lg:text-left text-yellow-400 font-bold">
                             {item.position}
                           </h3>
                           <div className="flex items-center gap-3">
@@ -248,28 +240,7 @@ const Resume = () => {
                 <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
                   {education.description}
                 </p>
-                <ScrollArea className="h-[400px]">
-                  <ul className="grid grid-cols-1 lg:grid-cols-2 gap-[30px]">
-                    {education.items.map((item, index) => {
-                      return (
-                        <li
-                          key={index}
-                          className="bg-[#232329] h-[184px] py-6 px-10 rounded-xl flex flex-col justify-center items-center lg:items-start gap-1"
-                        >
-                          <span className="text-accent">{item.duration}</span>
-                          <h3 className="text-xl max-w-[260px] min-h-[60px] text-center lg:text-left">
-                            {item.degree}
-                          </h3>
-                          <div className="flex items-center gap-3">
-                            {/* dot */}
-                            <span className="w-[6px] h-[6px] rounded-full bg-accent"></span>
-                            <p className="text-white/60">{item.institution}</p>
-                          </div>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </ScrollArea>
+                <AideModal/>
               </div>
             </TabsContent>
 
@@ -282,7 +253,7 @@ const Resume = () => {
                     {skills.description}
                   </p>
                 </div>
-                <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 xl:gap-[30px]">
+                {/* <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 xl:gap-[30px]">
                   {skills.skillList.map((skill, index) => {
                     return (
                       <li key={index}>
@@ -301,7 +272,7 @@ const Resume = () => {
                       </li>
                     );
                   })}
-                </ul>
+                </ul> */}
               </div>
             </TabsContent>
 
@@ -312,7 +283,17 @@ const Resume = () => {
             >
               <div className="flex flex-col gap-[30px]">
                 <h3 className="text-4xl font-bold">{about.title}</h3>
-                <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
+                <Button
+                  // as="a"
+                  download
+                  variant="outline"
+                  size="lg"
+                  className="uppercase flex items-center gap-2"
+                >
+                  <span>Télecharger mon bon</span>
+                  <FiDownload className="text-xl" />
+                </Button>
+                {/* <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
                   {about.description}
                 </p>
                 <ul className="grid grid-cols-1 xl:grid-cols-2 gap-y-6 max-w-[620px] mx-auto xl:mx-0">
@@ -327,7 +308,7 @@ const Resume = () => {
                       </li>
                     );
                   })}
-                </ul>
+                </ul> */}
               </div>
             </TabsContent>
           </div>
