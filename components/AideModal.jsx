@@ -24,7 +24,7 @@ const AideModal = () => {
         className="px-6 py-3 bg-red-600 text-white rounded-full font-bold hover:bg-red-700 transition"
         onClick={handleButtonClick}
       >
-        Signaler une perturbation
+        Demander de l'aide
       </button>
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">

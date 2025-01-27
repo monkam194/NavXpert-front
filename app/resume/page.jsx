@@ -13,6 +13,7 @@ import { SiTailwindcss, SiNextdotjs } from "react-icons/si";
 import PerturbationModal from "@/components/PerturbationModal";
 import { Button } from "@/components/ui/button";
 import { FiDownload } from "react-icons/fi";
+import { PostFeed } from "@/components/post-feed"
 
 // about data
 const about = {
@@ -63,22 +64,22 @@ const experience = {
     "Votre trafic est perturbé...",
   items: [
     {
-      company: "Tech Solutions Inc.",
+      company: "première perturbation",
       position: "RERC",
       duration: "2022 - Present",
     },
     {
-      company: "Web Design Studio",
+      company: "Deuxième perturbation",
       position: "RERD",
       duration: "Summer 2021",
     },
     {
-      company: "E-commerce Startup",
+      company: "Trosième perturbation",
       position: "Metro 14",
       duration: "2020 - 2021",
     },
     {
-      company: "Tech Academy",
+      company: "Quatrième perturbation",
       position: "Metro 7",
       duration: "2019 - 2020",
     },
@@ -129,7 +130,7 @@ const education = {
 const skills = {
   title: "Réseau",
   description:
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates quibusdam, sunt explicabo inventore.",
+    "Espace de forum discussion",
   skillList: [
     {
       icon: <FaHtml5 />,
@@ -206,7 +207,7 @@ const Resume = () => {
             {/* experience */}
             <TabsContent value="experience" className="w-full">
               <div className="flex flex-col gap-[30px] text-center xl:text-left">
-                <h3 className="text-4xl font-bold">{experience.title}</h3>
+                <h3 className="text-4xl text-black font-bold">{experience.title}</h3>
                 <PerturbationModal />
                 <ScrollArea className="h-[400px]">
                   <ul className="grid grid-cols-1 lg:grid-cols-2 gap-[30px]">
@@ -214,16 +215,16 @@ const Resume = () => {
                       return (
                         <li
                           key={index}
-                          className="bg-[#232329] h-[184px] py-6 px-10 rounded-xl flex flex-col justify-center items-center lg:items-start gap-1"
+                          className="bg-accent h-[184px] py-6 px-10 rounded-xl flex flex-col justify-center items-center lg:items-start gap-1"
                         >
                           {/* <span className="text-accent">{item.duration}</span> */}
-                          <h3 className="text-xl max-w-[260px] min-h-[60px] text-center lg:text-left text-yellow-400 font-bold">
+                          <h3 className="text-xl max-w-[260px] min-h-[60px] text-center lg:text-left text-black font-bold">
                             {item.position}
                           </h3>
                           <div className="flex items-center gap-3">
                             {/* dot */}
                             <span className="w-[6px] h-[6px] rounded-full bg-accent"></span>
-                            <p className="text-white/60">{item.company}</p>
+                            <p className="text-black/60">{item.company}</p>
                           </div>
                         </li>
                       );
@@ -236,8 +237,8 @@ const Resume = () => {
             {/* education */}
             <TabsContent value="education" className="w-full">
               <div className="flex flex-col gap-[30px] text-center xl:text-left">
-                <h3 className="text-4xl font-bold">{education.title}</h3>
-                <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
+                <h3 className="text-4xl text-black font-bold">{education.title}</h3>
+                <p className="max-w-[600px] text-black/60 mx-auto xl:mx-0">
                   {education.description}
                 </p>
                 <AideModal/>
@@ -248,11 +249,12 @@ const Resume = () => {
             <TabsContent value="skills" className="w-full h-full">
               <div className="flex flex-col gap-[30px]">
                 <div className="flex flex-col gap-[30px] text-center xl:text-left">
-                  <h3 className="text-4xl font-bold">{skills.title}</h3>
-                  <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
+                  <h3 className="text-4xl text-black font-bold">{skills.title}</h3>
+                  <p className="max-w-[600px] text-black/60 mx-auto xl:mx-0">
                     {skills.description}
                   </p>
                 </div>
+                <PostFeed />
                 {/* <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 xl:gap-[30px]">
                   {skills.skillList.map((skill, index) => {
                     return (
@@ -282,7 +284,7 @@ const Resume = () => {
               className="w-full text-center xl:text-left"
             >
               <div className="flex flex-col gap-[30px]">
-                <h3 className="text-4xl font-bold">{about.title}</h3>
+                <h3 className="text-4xl text-black font-bold">{about.title}</h3>
                 <Button
                   // as="a"
                   download
