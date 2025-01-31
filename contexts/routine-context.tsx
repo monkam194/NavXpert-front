@@ -19,7 +19,7 @@ export function RoutineProvider({ children }: { children: ReactNode }) {
   const [selectedRoutine, setSelectedRoutine] = useState<Routine>({
     id: 1,
     name: "Trajet travail",
-    lines: ["Ligne 1", "RER A"]
+    lines: ["Ligne 1", "Ligne 2"]
   })
 
   return (

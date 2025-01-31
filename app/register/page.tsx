@@ -14,6 +14,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
+  type CardProps,
 } from "@/components/ui/card";
 import {
   Form,
@@ -41,7 +42,7 @@ const formSchema = z.object({
   message: "Les mots de passe ne correspondent pas.",
   path: ["confirmPassword"],
 });
-
+export default function RegisterPage(props: CardProps) {
 export default function RegisterPage() {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -114,7 +115,7 @@ export default function RegisterPage() {
                   <FormItem>
                     <FormLabel>Numero </FormLabel>
                     <FormControl>
-                      <Input className="text-white" placeholder="0751529035 " type="tel" {...field} />
+                      <Input className="text-white" placeholder="0751529035 " type="" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -178,7 +179,7 @@ export default function RegisterPage() {
               <div className="w-full border-t border-gray-200" />
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="bg-white text-black px-2 text-muted-foreground">
+              <span className="bg-white px-2 text-muted-foreground">
                 Ou continuez avec
               </span>
             </div>

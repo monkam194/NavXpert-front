@@ -207,30 +207,51 @@ const Resume = () => {
             {/* experience */}
             <TabsContent value="experience" className="w-full">
               <div className="flex flex-col gap-[30px] text-center xl:text-left">
-                <h3 className="text-4xl text-black font-bold">{experience.title}</h3>
-                <PerturbationModal />
-                <ScrollArea className="h-[400px]">
-                  <ul className="grid grid-cols-1 lg:grid-cols-2 gap-[30px]">
-                    {experience.items.map((item, index) => {
-                      return (
-                        <li
-                          key={index}
-                          className="bg-accent h-[184px] py-6 px-10 rounded-xl flex flex-col justify-center items-center lg:items-start gap-1"
-                        >
-                          {/* <span className="text-accent">{item.duration}</span> */}
-                          <h3 className="text-xl max-w-[260px] min-h-[60px] text-center lg:text-left text-black font-bold">
-                            {item.position}
-                          </h3>
-                          <div className="flex items-center gap-3">
-                            {/* dot */}
-                            <span className="w-[6px] h-[6px] rounded-full bg-accent"></span>
-                            <p className="text-black/60">{item.company}</p>
-                          </div>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </ScrollArea>
+                <h3 className="text-4xl text-black font-bold">Planifiez votre itinéraire</h3>
+                <div className="flex flex-col xl:flex-row gap-4 items-center justify-center">
+                  {/* Formulaire de ville de départ */}
+                  <div className="flex flex-col">
+                    <label htmlFor="departureCity" className="text-lg font-bold text-black">
+                      Ville de départ
+                    </label>
+                    <input
+                      id="departureCity"
+                      type="text"
+                      placeholder="Entrez votre ville de départ"
+                      className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-accent"
+                    />
+                  </div>
+
+                  {/* Formulaire de ville d'arrivée */}
+                  <div className="flex flex-col">
+                    <label htmlFor="arrivalCity" className="text-lg font-bold text-black">
+                      Ville d'arrivée
+                    </label>
+                    <input
+                      id="arrivalCity"
+                      type="text"
+                      placeholder="Entrez votre ville d'arrivée"
+                      className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-accent"
+                    />
+                  </div>
+
+                  {/* Bouton de recherche */}
+                  <button className="px-6 py-2 bg-accent text-white font-bold rounded-lg hover:bg-accent-dark">
+                    Rechercher
+                  </button>
+                </div>
+
+                {/* Carte interactive */}
+                <div className="w-full h-[400px] mt-8 rounded-lg overflow-hidden shadow-lg">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345098586!2d144.95373531531673!3d-37.81627974202144!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xf577c2bca17327bd!2sVictoria%20State%20Library!5e0!3m2!1sen!2sfr!4v1689814897650!5m2!1sen!2sfr"
+                    width="100%"
+                    height="100%"
+                    allowFullScreen=""
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  ></iframe>
+                </div>
               </div>
             </TabsContent>
 

@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { useRouter } from "next/navigation";
 import { Loader2, UserPlus } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -23,28 +25,64 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+import Cookies from "js-cookie";
+
+const formSchema = z.object({
+  firstName: z.string().min(2, { message: "Le prénom doit contenir au moins 2 caractères." }),
+  lastName: z.string().min(2, { message: "Le nom doit contenir au moins 2 caractères." }),
+  email: z.string().email({ message: "Veuillez entrer une adresse email valide." }),
+  password: z.string().min(8, { message: "Le mot de passe doit contenir au moins 8 caractères." }),
+  phoneNumber: z.string().min(10, { message: "Veuillez entrer un numéro valide." }),
+});
 
 export default function RegisterPage() {
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
-  const form = useForm({
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
-      fullName: "",
+      firstName: "",
+      lastName: "",
       email: "",
       password: "",
-      confirmPassword: "",
+      phoneNumber: "",
     },
   });
 
   async function onSubmit(values) {
     setIsLoading(true);
-    
-    // Simuler un délai d'envoi
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    
-    toast.success("Inscription réussie !");
-    setIsLoading(false);
-    form.reset();
+    try {
+      // Envoyer une requête POST à l'API réelle
+      const response = await fetch("https://localhost:7083/api/UserRegistration", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Erreur lors de la création de l'utilisateur.");
+      }
+
+      const data = await response.json();
+
+      // Enregistrer les informations utilisateur dans les cookies
+      Cookies.set("authToken", data.token, { expires: 7 });
+      Cookies.set("userInfo", JSON.stringify(data), { expires: 7 });
+
+      toast.success("Utilisateur créé avec succès !");
+      form.reset();
+
+      // Rediriger vers la page principale
+      router.push("/");
+    } catch (error) {
+      toast.error(error.message || "Une erreur s'est produite.");
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -64,12 +102,12 @@ export default function RegisterPage() {
             <form onSubmit={form.handleSubmit(onSubmit)} className="text-black space-y-4">
               <FormField
                 control={form.control}
-                name="FirstName"
+                name="firstName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Nom </FormLabel>
+                    <FormLabel>Prénom</FormLabel>
                     <FormControl>
-                      <Input className="text-white" placeholder="John " {...field} />
+                      <Input placeholder="John" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -77,12 +115,12 @@ export default function RegisterPage() {
               />
               <FormField
                 control={form.control}
-                name="LastName"
+                name="lastName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Prenom </FormLabel>
+                    <FormLabel>Nom</FormLabel>
                     <FormControl>
-                      <Input className="text-white" placeholder="John " {...field} />
+                      <Input placeholder="Doe" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -90,12 +128,12 @@ export default function RegisterPage() {
               />
               <FormField
                 control={form.control}
-                name="PhoneNumber"
+                name="phoneNumber"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Numero </FormLabel>
+                    <FormLabel>Numéro de téléphone</FormLabel>
                     <FormControl>
-                      <Input className="text-white" placeholder="0751529035 " type="tel" {...field} />
+                      <Input placeholder="0751529035" type="tel" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -108,7 +146,7 @@ export default function RegisterPage() {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input className="text-white"  placeholder="john.doe@example.com" type="email" {...field} />
+                      <Input placeholder="john.doe@example.com" type="email" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -121,20 +159,7 @@ export default function RegisterPage() {
                   <FormItem>
                     <FormLabel>Mot de passe</FormLabel>
                     <FormControl>
-                      <Input className="text-white" placeholder="********" type="password" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="confirmPassword"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Confirmer le mot de passe</FormLabel>
-                    <FormControl>
-                      <Input className="text-white" placeholder="********" type="password" {...field} />
+                      <Input placeholder="********" type="password" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -153,26 +178,6 @@ export default function RegisterPage() {
             </form>
           </Form>
         </CardContent>
-        <CardFooter className="flex flex-col space-y-4">
-          <div className="relative w-full">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-200" />
-            </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="bg-white text-black px-2 text-muted-foreground">
-                Ou continuez avec
-              </span>
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <Button variant="outline" className="w-full">
-              Google
-            </Button>
-            <Button variant="outline" className="w-full">
-              GitHub
-            </Button>
-          </div>
-        </CardFooter>
       </Card>
     </div>
   );

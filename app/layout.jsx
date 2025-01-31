@@ -18,18 +18,11 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  // Vérifiez si le cookie d'authentification est présent côté client
-  const authCookie = typeof document !== "undefined" 
-    ? document.cookie.split("; ").find((row) => row.startsWith("authToken="))
-    : null;
-
-  const isAuthenticated = Boolean(authCookie);
-
   return (
     <html lang="en">
       <body className={jetbrainsMono.variable}>
-        {/* Affiche le header uniquement si l'utilisateur est authentifié */}
-        {isAuthenticated && <Header />}
+        {/* Toujours afficher le Header */}
+        <Header />
         <StairTransition />
         <PageTransition>{children}</PageTransition>
       </body>
